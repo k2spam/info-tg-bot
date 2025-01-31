@@ -30,6 +30,8 @@ fetch("http://<remote.server>:8081/order", {
 go build -o /usr/local/bin/telegram-bot
 ```
 
+!!! ПОСЛЕ БИЛДА НЕ ЗАБЫВАЕМ СОЗДАТЬ .ENV !!!
+
 ### Unit-файл systemd
 
 Добавление сервиса, чтоб перезапускать бота при рестарте и падениях
@@ -48,6 +50,7 @@ ExecStart=/usr/local/bin/telegram-bot
 WorkingDirectory=/usr/local/bin/
 Restart=always
 User=root
+EnvironmentFile=/usr/local/bin/.env
 
 [Install]
 WantedBy=multi-user.target
@@ -72,4 +75,16 @@ sudo systemctl status telegram-bot
 ```bash
 sudo systemctl stop telegram-bot
 sudo systemctl restart telegram-bot
+```
+
+### Просмотр логов сервиса
+
+```bash
+sudo journalctl -u telegram-bot -f
+```
+
+### Если потребоваось обновить конфиг сервиса
+
+```bash
+sudo systemctl daemon-reexec
 ```
