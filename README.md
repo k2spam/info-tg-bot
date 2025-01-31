@@ -27,7 +27,7 @@ fetch("http://<remote.server>:8081/order", {
 Билд бота в папку
 
 ```bash
-go build /usr/local/bin/telegram-bot -o main.go
+go build -o /usr/local/bin/telegram-bot
 ```
 
 ### Unit-файл systemd
