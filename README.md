@@ -48,7 +48,6 @@ ExecStart=/usr/local/bin/telegram-bot
 WorkingDirectory=/usr/local/bin/
 Restart=always
 User=root
-Environment="BOT_TOKEN=your_token_here"
 
 [Install]
 WantedBy=multi-user.target
