@@ -179,13 +179,13 @@ func (bot Bot) getParamString(params RequestMessage) string {
 		item = fmt.Sprintf("Техника: %s\n", params.Item)
 	}
 	if params.Type != "" {
-		item = fmt.Sprintf("Техника(доп): %s\n", params.Type)
+		itemType = fmt.Sprintf("Техника(доп): %s\n", params.Type)
 	}
 	if params.Problems != "" {
-		item = fmt.Sprintf("Поломки: %s\n", params.Problems)
+		problems = fmt.Sprintf("Поломки: %s\n", params.Problems)
 	}
 	if params.Repair != "" {
-		item = fmt.Sprintf("Требуемый ремонт: %s\n", params.Repair)
+		repair = fmt.Sprintf("Требуемый ремонт: %s\n", params.Repair)
 	}
 	return fmt.Sprintf(`%s%s%s%s%s%s`, name, phone, item, itemType, problems, repair)
 }
