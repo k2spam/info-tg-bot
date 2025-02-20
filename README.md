@@ -15,7 +15,7 @@ USERS= // список сохраненых пользователей для р
 fetch("http://<remote.server>:8081/order", {
     mode: "no-cors",
     method: "POST",
-    body: JSON.Stringify({
+    body: JSON.stringify({
         name: "User name",
         phone: "+7 (123) 456-78-90"
     })

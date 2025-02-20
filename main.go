@@ -19,8 +19,12 @@ type Bot struct {
 }
 
 type RequestMessage struct {
-	Name  string `json:"name"`
-	Phone string `json:"phone"`
+	Name     string `json:"name"`
+	Phone    string `json:"phone"`
+	Item     string `json:"item"`
+	Type     string `json:"itemtype"`
+	Problems string `json:"problems"`
+	Repair   string `json:"repair"`
 }
 
 type UpdateData struct {
@@ -157,14 +161,44 @@ func (bot Bot) startBot() {
 	}
 }
 
+func (bot Bot) getParamString(params RequestMessage) string {
+	name := ""
+	phone := ""
+	item := ""
+	itemType := ""
+	problems := ""
+	repair := ""
+
+	if params.Name == "" {
+		name = "Имя: Не указано\n"
+	}
+	if params.Phone != "" {
+		phone = fmt.Sprintf("Телефон: %s\n", params.Phone)
+	}
+	if params.Item != "" {
+		item = fmt.Sprintf("Техника: %s\n", params.Item)
+	}
+	if params.Type != "" {
+		item = fmt.Sprintf("Техника(доп): %s\n", params.Type)
+	}
+	if params.Problems != "" {
+		item = fmt.Sprintf("Поломки: %s\n", params.Problems)
+	}
+	if params.Repair != "" {
+		item = fmt.Sprintf("Требуемый ремонт: %s\n", params.Repair)
+	}
+	return fmt.Sprintf(`%s%s%s%s%s%s`, name, phone, item, itemType, problems, repair)
+}
+
 func (bot Bot) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	var request RequestMessage
 	decoder := json.NewDecoder(r.Body)
 	decoder.Decode(&request)
+	message := bot.getParamString(request)
 
 	chatIDs, _ := bot.loadChatIDs()
 	for _, chatID := range chatIDs {
-		bot.sendMessage(chatID, fmt.Sprintf("Имя: %s\nТелефон: %s", request.Name, request.Phone))
+		bot.sendMessage(chatID, message)
 	}
 }
 
